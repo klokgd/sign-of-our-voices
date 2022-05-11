@@ -12,23 +12,34 @@ MongoClient.connect('mongodb://127.0.0.1:27017', (err, client) => {
     router.post("/fileupload", (req, res, next) => {
         let base64 = req.body.image;
         let data = base64.replace(/^data:image\/png;base64/, "");
-        let pictureId;
+        let pictureId = addToDb(userCollection);
+        let pictureIdForSave = pictureId.toString() + ".jpg";
+        let pathForUnload = unloadImage(pictureIdForSave, data);
+        updateRecordInDb(userCollection, pathForUnload, pictureId);
+    });
+
+    function unloadImage(pictureId, pictureData){
+        let pathForUnload = path.join(__dirname, '..', 'download', pictureId);
+        fs.writeFileSync(pathForUnload, pictureData, {encoding: 'base64'});
+        return pathForUnload;
+    }
+
+    function addToDb(userCollection){
         let objectToInsert =
             {
-            "path": "123",
+                "path": "123",
             };
         userCollection.insertOne(objectToInsert)
             .then(result => {
                 //pictureId = "444";
-               console.log(result.insertedId.toString());
+                console.log(result.insertedId.toString());
             }).catch(error => console.error(error));
-        pictureId = objectToInsert._id.toString() + ".jpg";
-        let pathForDownload = path.join(__dirname, '..', 'download', pictureId);
-        fs.writeFileSync(pathForDownload, data, {encoding: 'base64'});
-        userCollection.updateOne({_id: objectToInsert._id}, {$set: {path:pathForDownload}})
+        return objectToInsert._id;
+    }
+
+    function updateRecordInDb(userCollection, pathForUnload, objectId){
+        userCollection.updateOne({_id: objectId}, {$set: {path:pathForUnload}})
             .catch(error => console.error(error));
-    });
-
-
+    }
 })
 module.exports = router;
