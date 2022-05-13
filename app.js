@@ -8,6 +8,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var uploadRouter = require('./routes/upload');
+var successfullyRouter = require('./routes/successfully')
 var fs = require("fs");
 
 var app = express();
@@ -25,13 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-// app.post('/fileupload', (req, res) => {
-//   var base64 = req.body.image;
-//   var data = base64.replace(/^data:image\/png;base64/, "");
-//   fs.writeFileSync(__dirname + `/download/newImage.jpg`, data, {encoding: 'base64'});
-// });
 app.use('/', uploadRouter);
-
+app.use('/fileupload', successfullyRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
