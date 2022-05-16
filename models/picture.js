@@ -4,6 +4,10 @@ const schema = new Schema({
     path: {
         type: String,
         required: true
+    },
+    collection_name: {
+        type: String,
+        required: true
     }
 })
 
