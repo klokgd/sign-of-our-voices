@@ -1,28 +1,28 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var lessMiddleware = require('less-middleware');
-var logger = require('morgan');
-var mongoose = require('mongoose');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let lessMiddleware = require('less-middleware');
+let logger = require('morgan');
+let mongoose = require('mongoose');
+let hbs = require('hbs');
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
+let uploadRouter = require('./routes/upload');
+let successfullyRouter = require('./routes/successfully');
+let fs = require("fs");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var uploadRouter = require('./routes/upload');
-var successfullyRouter = require('./routes/successfully')
-var fs = require("fs");
+let app = express();
 
-var app = express();
-
-var mongoDB = "mongodb://127.0.0.1:27017/sign-of-our-voices";
+let mongoDB = "mongodb://127.0.0.1:27017/sign-of-our-voices";
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
-var db = mongoose.connection;
+let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
+hbs.registerPartials(__dirname + '/views/partials')
 app.use(logger('dev'));
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
