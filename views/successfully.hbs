@@ -6,5 +6,16 @@
 </head>
 <body>
 {{{body}}}
+{{#if pictures.length}}
+    <ul>
+    {{#each pictures}}
+    <li>
+        <span><img src="{{path}}"></span>
+    </li>
+    {{/each}}
+    </ul>
+{{else}}
+<p>No pictures in collections!</p>
+{{/if}}
 </body>
 </html>
