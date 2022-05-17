@@ -22,16 +22,18 @@
 <body>
 {{> navbar}}
 <div class="list-of-collections container" style="max-width: 740px">
+{{#if collections.length}}
     <li class="li-collections">
         <ul>
+            {{#each collections}}
             <a href="/" class="link-of-collection">
             <div class="sign-collection">
-                <h3 class="name-of-collection">Name of collections</h3>
+                <h3 class="name-of-collection">{{name}}</h3>
                 <div class="information-of-collection">
-                <div class="image-of-collection mx-auto"><img src="../images/col.png" alt="" class="img-fluid"></div>
+                <div class="image-of-collection mx-auto"><img src="{{image_path}}" alt="" class="img-fluid"></div>
                 <div class="text-of-collection">
 
-                    <p class="description-of-collection">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, architecto aut culpa cum cumque deleniti dolorum earum eius enim excepturi ipsam laboriosam maxime molestiae odit optio, quasi rem velit voluptate.</p>
+                    <p class="description-of-collection">{{description}}</p>
                 </div>
                 <div class="button-container mx-auto">
                     <button class="upload-image-button" type="submit">
@@ -45,8 +47,13 @@
             </div>
             </div>
             </a>
+            {{/each}}
         </ul>
     </li>
+{{else}}
+    <h3>Ни одной коллекции не добавлено!</h3>
+{{/if}}
+
 </div>
 </body>
 {{> footer}}
