@@ -1,3 +1,9 @@
+@media screen and (max-width: 900px) {
+  .sign-collection h3{
+    font-size: 1.3rem;
+  }
+}
+
 body {
   padding: 10px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -9,23 +15,37 @@ a {
 
 .li-collections {
   list-style: none;
+  padding-top: 10px;
 }
 
 .sign-collection{
+//  display: grid;
+ // grid-template-columns: 1fr 2fr 1fr;
+  height: 12em;
+  border:0.5px solid black;
+  text-align: center;
+}
+.sign-collection h3{
+  text-align: center;
+}
+.information-of-collection{
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  height: 10em;
-  border: 1em;
 }
-
+.information-of-collection p{
+  text-align: left;
+}
 .sign-collection:hover{
   color: blue;
   opacity: 0.8;
 }
 
 .image-of-collection img{
-  width: 10em;
-  height: 10em;
+  width: 8em;
+  height: 8em;
+  object-fit: contain;
+  padding-right: 3px;
+  padding-left: 3px;
 }
 .image-of-collection{
   margin-top: auto;
@@ -44,7 +64,13 @@ a {
 
 .text-of-collection {
   height: 8em;
-  word-wrap: break-word;
+  line-height: normal;
+  overflow: hidden;
+}
+
+.sign-collection h3{
+  text-align: center;
+  display: inline-block;
 }
 
 .button-container{
@@ -62,4 +88,5 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
 
