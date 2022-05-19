@@ -9,7 +9,7 @@ let hbs = require('hbs');
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let uploadRouter = require('./routes/upload');
-let successfullyRouter = require('./routes/successfully');
+let collectionRouter = require('./routes/collection')
 let fs = require("fs");
 
 let app = express();
@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/', uploadRouter);
-app.use('/fileupload', successfullyRouter);
+app.use('/collection', collectionRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
