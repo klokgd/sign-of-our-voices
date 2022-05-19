@@ -7,7 +7,7 @@ const Picture = require("../models/picture");
 /* GET home page. */
 router.get('/', async function(req, res, next) {
   const collections = await Collections.find({})
-  res.render('index', { title: 'Hui', collections });
+  res.render('index', { title: 'sIGN', collections });
 });
 
 module.exports = router;
