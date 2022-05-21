@@ -1,22 +1,35 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <head>
     <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel="stylesheet" href="/stylesheets/collection.css">
 </head>
 <body>
 {{> navbar}}
-{{#if pictures.length}}
-    <ul>
-    {{#each pictures}}
-    <li>
-        <span><img src="{{path}}"></span>
-    </li>
-    {{/each}}
-    </ul>
-{{else}}
-<p>No pictures in collections!</p>
-{{/if}}
+<div class="container">
+    {{#if pictures.length}}
+        <ul>
+        <div class="row">
+            {{#each pictures}}
+                    <div class="picture-block col-xl-3 col-md-4 col-sm-6">
+                        <li>
+                            <span><img class="img-fluid picture-of-collections" src="{{path}}"></span>
+                        </li>
+                    </div>
+
+            {{/each}}
+        </div>
+        </ul>
+    {{else}}
+        <p>В этой коллекции нет ни одной картинки!</p>
+    {{/if}}
+</div>
 </body>
 {{> footer}}
 </html>
