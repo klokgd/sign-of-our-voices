@@ -11,6 +11,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017', (err, client) => {
     userCollection = db.collection(collectionName);
     router.post("/fileupload", (req, res, next) => {
         let base64 = req.body.image;
+        let collection_id = req.body.collectionId;
         let data = base64.replace(/^data:image\/png;base64/, "");
         let pictureId = addToDb(userCollection);
         let pictureIdForSave = pictureId.toString() + ".jpg";
@@ -21,7 +22,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017', (err, client) => {
 })
 
 function unloadImage(pictureId, pictureData) {
-    let pathForUnload = path.join(__dirname, '..', 'download', pictureId);
+    let pathForUnload = path.join(__dirname, '..', 'public/download', pictureId);
     fs.writeFileSync(pathForUnload, pictureData, {encoding: 'base64'});
     return pathForUnload;
 }
@@ -36,6 +37,10 @@ function addToDb(userCollection) {
             console.log(result.insertedId.toString());
         }).catch(error => console.error(error));
     return objectToInsert._id;
+}
+
+function addToCollection(collectionId){
+
 }
 
 function updateRecordInDb(userCollection, pathForUnload, objectId) {

@@ -1,13 +1,12 @@
-
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
 
 <head>
     <title>Crop Image Before Upload using CropperJS with PHP</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+    <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css"/>
     <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
     <script src="https://unpkg.com/dropzone"></script>
     <script src="https://unpkg.com/cropperjs"></script>
@@ -31,7 +30,7 @@
             border: 1px solid red;
         }
 
-        .modal-lg{
+        .modal-lg {
             max-width: 1000px !important;
         }
 
@@ -68,20 +67,20 @@
 </head>
 <body>
 <div class="container" align="center">
-    <br />
+    <br/>
     <h3 align="center">Crop Image Before Upload using CropperJS with NodeJs</h3>
-    <br />
+    <br/>
     <div class="row">
         <div class="col-md-4">&nbsp;</div>
         <div class="col-md-4">
             <div class="image_area">
                 <form method="post">
                     <label for="upload_image">
-                        <img src="img/upload.png" id="uploaded_image" class="img-responsive" />
+                        <img src="img/upload.png" id="uploaded_image" class="img-responsive"/>
                         <div class="overlay">
                             <div class="text">Click to Change Profile Image</div>
                         </div>
-                        <input type="file" name="foo" class="image" id="upload_image" style="display:none" />
+                        <input type="file" name="foo" class="image" id="upload_image" style="display:none"/>
                     </label>
                 </form>
             </div>
@@ -99,7 +98,7 @@
                         <div class="img-container">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <img src="" id="sample_image" />
+                                    <img src="" id="sample_image"/>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="preview"></div>
@@ -121,7 +120,7 @@
 
 <script>
 
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         var $modal = $('#modal');
 
@@ -129,54 +128,52 @@
 
         var cropper;
 
-        $('#upload_image').change(function(event){
+        $('#upload_image').change(function (event) {
             var files = event.target.files;
 
-            var done = function(url){
+            var done = function (url) {
                 image.src = url;
                 $modal.modal('show');
             };
 
-            if(files && files.length > 0)
-            {
+            if (files && files.length > 0) {
                 reader = new FileReader();
-                reader.onload = function(event)
-                {
+                reader.onload = function (event) {
                     done(reader.result);
                 };
                 reader.readAsDataURL(files[0]);
             }
         });
 
-        $modal.on('shown.bs.modal', function() {
+        $modal.on('shown.bs.modal', function () {
             cropper = new Cropper(image, {
                 aspectRatio: 1,
                 viewMode: 3,
-                preview:'.preview'
+                preview: '.preview'
             });
-        }).on('hidden.bs.modal', function(){
+        }).on('hidden.bs.modal', function () {
             cropper.destroy();
             cropper = null;
         });
 
-        $('#crop').click(function(){
+      
+        $('#crop').click(function () {
             canvas = cropper.getCroppedCanvas({
-                width:400,
-                height:400
+                width: 400,
+                height: 400
             });
 
-            canvas.toBlob(function(blob){
+            canvas.toBlob(function (blob) {
                 url = URL.createObjectURL(blob);
                 var reader = new FileReader();
                 reader.readAsDataURL(blob);
-                reader.onloadend = function(){
+                reader.onloadend = function () {
                     var base64data = reader.result;
                     $.ajax({
-                        url:'/fileupload',
-                        method:'POST',
-                        data:{image:base64data},
-                        success:function(data)
-                        {
+                        url: 'http://127.0.0.1:3000/fileupload',
+                        method: 'POST',
+                        data: {image: base64data},
+                        success: function (data) {
                             $modal.modal('hide');
                             $('#uploaded_image').attr('src', data);
                         },
