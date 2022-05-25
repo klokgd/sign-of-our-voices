@@ -58,6 +58,7 @@ $(document).ready(function(){
                     {
                         $modal.modal('hide');
                         $('#uploaded_image').attr('src', data);
+                        window.location = "/successfully";
                     },
                 });
             };

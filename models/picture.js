@@ -5,7 +5,7 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    collection_name: {
+    collectionId: {
         type: String,
         required: true
     }
