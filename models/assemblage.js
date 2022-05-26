@@ -12,6 +12,10 @@ const schema = new Schema({
     image_path: {
         type: String,
         required: true
+    },
+    pictures: {
+        type: Array,
+        required: false
     }
 })
 

@@ -4,43 +4,42 @@ var router = express.Router();
 var fs = require('fs');
 var MongoClient = require('mongodb').MongoClient;
 var collectionName = "v-for-vendetta";
+const Assemblage = require('../models/assemblage');
+const Pictures = require('../models/picture');
 
-
-MongoClient.connect('mongodb://127.0.0.1:27017', (err, client) => {
-    const db = client.db("sign-of-our-voices");
-    userCollection = db.collection(collectionName);
-    router.post("/fileupload", (req, res, next) => {
-        let base64 = req.body.image;
-        let data = base64.replace(/^data:image\/png;base64/, "");
-        let pictureId = addToDb(userCollection);
-        let pictureIdForSave = pictureId.toString() + ".jpg";
-        let pathForUnload = unloadImage(pictureIdForSave, data);
-        updateRecordInDb(userCollection, pathForUnload, pictureId);
-        res.redirect("/fileupload/");
+router.post("/fileupload", async (req, res, next) => {
+    let base64 = req.body.image;
+    let data = base64.replace(/^data:image\/png;base64/, "");
+    let collectionId = req.body.collectionId;
+    let picture = new Pictures({path: "123", collectionId: collectionId});
+    picture.save(function (err) {
+        if(err) return console.log(err);
+        console.log("Картинка сохранена", picture);
     });
+    let pictureId = picture._id.toString();
+    let newPictureName = pictureId + ".jpg";
+    let picturePath = "/download/" + newPictureName;
+    uploadImage(newPictureName, data);
+    picture.path = picturePath;
+    addPictureToAssemblage(collectionId, picture._id);
+    res.redirect("/successfully");
 })
 
-function unloadImage(pictureId, pictureData) {
-    let pathForUnload = path.join(__dirname, '..', 'download', pictureId);
-    fs.writeFileSync(pathForUnload, pictureData, {encoding: 'base64'});
-    return pathForUnload;
+router.get("/successfully", (req, res, next) => {
+    res.render('successfully', { title: 'sIGN' });
+})
+
+function addPictureToAssemblage(collectionId, pictureId){
+    Assemblage.findByIdAndUpdate(collectionId, {$push: {pictures: pictureId}}, function(err, result){
+        if(err) return console.log(err);
+        console.log("Картинка добавлена в массив");
+    });
 }
 
-function addToDb(userCollection) {
-    let objectToInsert =
-        {
-            "path": "",
-        };
-    userCollection.insertOne(objectToInsert)
-        .then(result => {
-            console.log(result.insertedId.toString());
-        }).catch(error => console.error(error));
-    return objectToInsert._id;
+function uploadImage(pictureId, pictureData) {
+    let pathForUpload = path.join(__dirname, '..', 'public/download', pictureId);
+    fs.writeFileSync(pathForUpload, pictureData, {encoding: 'base64'});
 }
 
-function updateRecordInDb(userCollection, pathForUnload, objectId) {
-    userCollection.updateOne({_id: objectId}, {$set: {path: pathForUnload}})
-        .catch(error => console.error(error));
-}
 
 module.exports = router;

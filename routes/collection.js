@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var router = express.Router();
-const Collections = require('../models/collection');
+const Collections = require('../models/assemblage');
 const Pictures = require('../models/picture');
 
 /* GET home page. */
@@ -11,11 +11,13 @@ router.get('/', async function (req, res, next) {
 });
 
 router.get('/:id', async function (req, res, next) {
-    const collection = await Collections.findById(req.params["id"]);
+    let collectionId = req.params["id"];
+    const collection = await Collections.findById(collectionId);
     let listOfIdPictures = collection._doc.pictures;
     let pictures = await Pictures.find({
         '_id': { $in: listOfIdPictures}});
-    res.render('collection', { title: 'Hui', body: "Upload successfully", pictures});
+
+    res.render('collection', { title: 'Hui', body: "Upload successfully", pictures, collectionId});
 
 });
 
