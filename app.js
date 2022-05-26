@@ -1,21 +1,28 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var lessMiddleware = require('less-middleware');
-var logger = require('morgan');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let lessMiddleware = require('less-middleware');
+let logger = require('morgan');
+let mongoose = require('mongoose');
+let hbs = require('hbs');
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
+let uploadRouter = require('./routes/upload');
+let collectionRouter = require('./routes/collection')
+let fs = require("fs");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var uploadRouter = require('./routes/upload');
-var fs = require("fs");
+let app = express();
 
-var app = express();
-
+let mongoDB = "mongodb://127.0.0.1:27017/sign-of-our-voices";
+mongoose.connect(mongoDB);
+mongoose.Promise = global.Promise;
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
+hbs.registerPartials(__dirname + '/views/partials')
 app.use(logger('dev'));
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
@@ -25,13 +32,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-// app.post('/fileupload', (req, res) => {
-//   var base64 = req.body.image;
-//   var data = base64.replace(/^data:image\/png;base64/, "");
-//   fs.writeFileSync(__dirname + `/download/newImage.jpg`, data, {encoding: 'base64'});
-// });
 app.use('/', uploadRouter);
-
+app.use('/collection', collectionRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
