@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var router = express.Router();
-const Collections = require('../models/collection');
+const Collections = require('../models/assemblage');
 const Picture = require("../models/picture");
 
 /* GET home page. */
