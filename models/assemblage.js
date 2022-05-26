@@ -11,7 +11,7 @@ const schema = new Schema({
     },
     image_path: {
         type: String,
-        required: true
+        required: false
     },
     pictures: {
         type: Array,
