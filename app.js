@@ -3,15 +3,13 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let lessMiddleware = require('less-middleware');
-let logger = require('morgan');
 let mongoose = require('mongoose');
 let hbs = require('hbs');
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let uploadRouter = require('./routes/upload');
-let collectionRouter = require('./routes/collection')
-let fs = require("fs");
-
+let collectionRouter = require('./routes/collection');
+let multer = require('multer');
 let app = express();
 
 let mongoDB = "mongodb://127.0.0.1:27017/sign-of-our-voices";
@@ -19,11 +17,12 @@ mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials')
-app.use(logger('dev'));
+
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 app.use(cookieParser());
