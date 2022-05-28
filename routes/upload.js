@@ -26,7 +26,7 @@ router.post("/fileupload", async (req, res, next) => {
 })
 
 router.get("/successfully", (req, res, next) => {
-    res.render('successfully', { title: 'sIGN' });
+    res.render('successfullyAddingImage', { title: 'sIGN' });
 })
 
 function addPictureToAssemblage(collectionId, pictureId){
