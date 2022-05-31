@@ -5,7 +5,6 @@ let cookieParser = require('cookie-parser');
 let lessMiddleware = require('less-middleware');
 let mongoose = require('mongoose');
 let hbs = require('hbs');
-let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let uploadRouter = require('./routes/upload');
 let collectionRouter = require('./routes/collection');
@@ -13,11 +12,11 @@ let app = express();
 const session = require('express-session');
 const Config = require('./libs/config')
 
-let mongoDB = "mongodb://127.0.0.1:27017/sign-of-our-voices";
-mongoose.connect(mongoDB);
-mongoose.Promise = global.Promise;
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+//let mongoDB = "mongodb://127.0.0.1:27017/sign-of-our-voices";
+// mongoose.connect(mongoDB);
+// mongoose.Promise = global.Promise;
+// let db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -45,7 +44,7 @@ require('./libs/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', indexRouter);
+require('./routes/index')(app, passport);
 app.use('/users', usersRouter);
 app.use('/', uploadRouter);
 app.use('/collection', collectionRouter);
