@@ -11,4 +11,4 @@ const schema = new Schema({
     }
 })
 
-module.exports = model('v-for-vendetta', schema)
+module.exports = model('picture', schema)

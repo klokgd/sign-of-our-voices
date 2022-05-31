@@ -9,8 +9,9 @@ let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let uploadRouter = require('./routes/upload');
 let collectionRouter = require('./routes/collection');
-let multer = require('multer');
 let app = express();
+const session = require('express-session');
+const Config = require('./libs/config')
 
 let mongoDB = "mongodb://127.0.0.1:27017/sign-of-our-voices";
 mongoose.connect(mongoDB);
@@ -23,11 +24,26 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials')
 
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
+app.use(express.json({limit: '10mb'}));
+app.use(express.urlencoded({limit: '10mb'}));
 app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+const sessionStore = require('./libs/sessionStore');
+app.use(session({
+  secret: Config.session.secret,
+  key: Config.session.key,
+  cookie: Config.session.cookie,
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: true
+}));
+
+const passport = require('passport');
+require('./libs/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
