@@ -14,13 +14,13 @@ module.exports = (app, passport) => {
 
   let networks = ['google', 'facebook'];
   networks.forEach(network => {
-    app.get('/registration/${network}', (req, res) => {
+    app.get('/registration/:network', (req, res) => {
       passport.authenticate(network, {
         scope:'email'
       })(req, res);
     });
 
-    app.get('/registration/${network}/callback', (req,res) => {
+    app.get('/registration/:network/callback', (req,res) => {
       passport.authenticate(network, {
         successRedirect: '/auth-success',
         failureRedirect: '/auth-error'
@@ -34,4 +34,9 @@ module.exports = (app, passport) => {
   let logoutRoute = require('./logout');
   app.get('/logout', logoutRoute.get);
 
+  let assemblageRoute = require('./assemblage');
+  app.use('/assemblage', assemblageRoute);
+
+  let uploadRoute = require('./upload');
+  app.use('/', uploadRoute);
 };

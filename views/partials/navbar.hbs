@@ -20,9 +20,18 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Disabled</a>
             </li>
+{{#if authenthication}}
             <li class="nav-item">
-                <a href="/authentication/google" class="nav-link">Войти через Google</a>
+                <a href="/registration/google" class="nav-link">Войти через Google</a>
             </li>
+{{else}}
+    <li class="nav-item">
+        Вы залогинены!
+    </li>
+    <li class="nav-item">
+        <a href="/logout" class="nav-link">Выйти</a>
+    </li>
+{{/if}}
         </ul>
 
     </div>

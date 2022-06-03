@@ -1,7 +1,11 @@
-const session = require('express-session');
-const mongoose = require('./mongoose');
-const mongoStore = require('connect-mongo')(session);
+const mongoStore = require('connect-mongo');
+const Config = require('./config');
+const mongoose = require('mongoose');
 
-const sessionStore = new mongoStore({mongooseConnection: mongoose.connection});
+const clientP = mongoose.connect(Config.mongoose.uri, Config.mongoose.options).then(m => m.connection.getClient())
+
+const sessionStore = mongoStore.create({
+    clientPromise: clientP
+});
 
 module.exports = sessionStore;
