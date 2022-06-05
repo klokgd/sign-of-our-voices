@@ -1,6 +1,6 @@
-var express = require('express');
-const Collections = require('../models/assemblage');
-const Picture = require('../models/picture');
+//var express = require('express');
+//const Collections = require('../models/assemblage');
+//const Picture = require('../models/picture');
 
 /* GET home page. */
 

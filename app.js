@@ -39,12 +39,15 @@ app.use(session({
   saveUninitialized: true
 }));
 
+//const assemblageRoute = require("./routes/assemblage");
+
 const passport = require('passport');
-const assemblageRoute = require("./routes/assemblage");
 require('./libs/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
+const common = require("./common");
+app.use(common.commonMW);
 require('./routes/index')(app, passport);
 
 // catch 404 and forward to error handler
