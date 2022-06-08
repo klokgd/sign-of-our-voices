@@ -38,7 +38,7 @@ router.get('/id-:id', async function (req, res, next) {
     let pictures = await Pictures.find({
         '_id': { $in: listOfIdPictures}});
 
-    res.render('collection', { title: 'Hui', body: "Upload successfully", pictures, collectionId});
+    res.render('assemblage', { title: 'Hui', body: "Upload successfully", pictures, collectionId});
 
 });
 
