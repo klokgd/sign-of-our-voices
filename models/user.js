@@ -12,6 +12,9 @@ const schema = new Schema({
     lastName: {
         type: String
     },
+    role: {
+        type: String
+    },
     avatar: {
         type: String
     },
