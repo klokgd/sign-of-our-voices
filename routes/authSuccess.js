@@ -15,6 +15,7 @@ exports.get = async (req, res, next) => {
             userObj.socialId = req.session.passport.user.id;
             userObj.provider = req.session.passport.user.provider;
 
+
             req.session.userId = await Users.findOne({socialId: userObj.socialId}, {_id: 1}).lean();
             req.session.userId = req.session.userId || (await Users.fullSave(userObj))._id;
 

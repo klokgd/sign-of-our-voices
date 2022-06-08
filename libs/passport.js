@@ -23,4 +23,15 @@ module.exports = passport => {
                 done(null, profile);
             });
         }));
+
+    passport.checkIsInRole = (...roles) => (req, res, next) => {
+        if (!req.user) {
+            return res.redirect('/')
+        }
+        const hasRole = roles.find(role => res.locals.userProfile.role === role)
+        if (!hasRole){
+            return res.redirect('/')
+        }
+        return next()
+    }
 };

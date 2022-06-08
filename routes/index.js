@@ -4,6 +4,8 @@
 
 /* GET home page. */
 
+const {ROLES} = require("../libs/roles");
+
 module.exports = (app, passport) => {
 
   let mainRoute = require('./main');
@@ -39,4 +41,10 @@ module.exports = (app, passport) => {
 
   let uploadRoute = require('./upload');
   app.use('/', uploadRoute);
+
+  app.get('/admin',
+      passport.checkIsInRole(ROLES.Admin),
+      (req, res) => {
+    res.render('admin-dashboard');
+  })
 };
