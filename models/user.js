@@ -13,7 +13,8 @@ const schema = new Schema({
         type: String
     },
     role: {
-        type: String
+        type: String,
+        default: "User"
     },
     avatar: {
         type: String
