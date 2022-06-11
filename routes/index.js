@@ -1,8 +1,4 @@
-//var express = require('express');
-//const Collections = require('../models/assemblage');
-//const Picture = require('../models/picture');
 
-/* GET home page. */
 
 const {ROLES} = require("../libs/roles");
 
@@ -47,4 +43,7 @@ module.exports = (app, passport) => {
       (req, res) => {
     res.render('admin-dashboard');
   })
+
+  let moderatorRoute = require('./moderator');
+  app.use('/moderator', passport.checkIsInRole(ROLES.Moderator), moderatorRoute);
 };

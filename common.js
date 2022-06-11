@@ -2,7 +2,7 @@ const Users = require('./models/user');
 
 module.exports.commonMW = async (req, res, next) => {
 
-    res.locals.title = 'Simple Passport.js demo';
+    res.locals.title = 'sIGN';
     res.locals.fullYear = (new Date()).getFullYear();
     res.locals.userProfile = '';
 

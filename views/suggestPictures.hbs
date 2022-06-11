@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/collection.css">
+
+</head>
+<body>
+{{> navbar}}
+<div class="container clearfix">
+    {{#if pictures.length}}
+        <ul>
+            <div class="row">
+                {{#each pictures}}
+                    <form action="/moderator/suggest/approve" method="post">
+                    <div class="picture-block col-xl-3 col-md-4 col-sm-6">
+                        <li>
+                            <span><img class="img-fluid picture-of-collections" src="{{path}}"></span>
+                        </li>
+                        <input type="hidden" name="pictureId" value="{{_id}}">
+                        <input type="submit" name="approve" value="Одобрить" class="btn btn-success btn-style">
+                        <input type="submit" name="cancel" value="Отменить" class="btn btn-secondary btn-style">
+                    </div>
+                    </form>
+                {{/each}}
+            </div>
+        </ul>
+    {{else}}
+        <p>В предложке нет ни одной картинки!</p>
+    {{/if}}
+
+</body>
+</html>
