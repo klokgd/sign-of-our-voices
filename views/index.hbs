@@ -1,20 +1,16 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{title}}</title>
 
-
-</head>
 <body>
 {{> navbar}}
 
 
 <div class="row">
-    <div class="col-md-4">&nbsp;</div>
+    <div class="col-md-2 mx-auto">
+        <a href="assemblage/new" class="btn btn-primary mx-auto">
+            Добавить новый ассамбляж
+        </a>
+    </div>
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -50,7 +46,7 @@
         <li class="li-collections">
             <ul style="padding-left: 0px">
                 {{#each collections}}
-                    <a href="collection/{{_id}}" class="link-of-collection">
+                    <a href="assemblage/id-{{_id}}" class="link-of-collection">
                         <div class="sign-collection">
                             <h3 class="name-of-collection">{{name}}</h3>
                             <div class="information-of-collection">
@@ -73,7 +69,8 @@
 
 </div>
 
+{{>scripts}}
+
 </body>
-{{> footer}}
 
 </html>

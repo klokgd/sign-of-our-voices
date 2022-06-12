@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<body>
+{{>navbar}}
+<div class="container">
+    <div class="col-4">
+        <form method="post" encType="multipart/form-data">
+            <div class="form-group">
+                <label for="inputName">Название нового ассамбляжа</label>
+                <input type="text" class="form-control" required name="name" id="inputName" aria-describedby="emailHelp"
+                       placeholder="Введите название">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="inputDescription">Напишите описание</label>
+                <textarea name="description" required placeholder="Описание"  class="form-control inputDescription" id="inputDescription"></textarea>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="inputFile">Добавьте картинку обложки ассамбляжа</label>
+                <input name="cover" type="file" class="form-control-file">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{{>scripts}}
+</body>
+</html>

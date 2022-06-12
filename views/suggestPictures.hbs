@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<body>
+{{> navbar}}
+<div class="container clearfix">
+    {{#if pictures.length}}
+            <div class="row">
+                {{#each pictures}}
+                    <div style="padding-bottom: 10px" class="col-lg-4 col-8 mx-auto">
+                    <form action="/moderator/suggest/approve" method="post">
+                        <div class="picture-block">
+                                <span><img style="padding-bottom: 5px" class="img-fluid picture-of-collections" src="{{path}}"></span>
+                            <input type="hidden" name="pictureId" value="{{_id}}">
+                            <p>
+                                Юзер предлагает добавить картинку в ассамбляж <a href="../assemblage/id-{{collectionId}}">"{{assemblageName}}"</a>
+                            </p>
+                            <input type="submit" name="approve" value="Одобрить" class="btn btn-success btn-style">
+                            <input type="submit" name="cancel" value="Отменить" class="float-end btn btn-secondary btn-style">
+                        </div>
+                    </form>
+                    </div>
+                {{/each}}
+            </div>
+        </ul>
+    {{else}}
+        <p>В предложке нет ни одной картинки!</p>
+    {{/if}}
+    {{>scripts}}
+</div>
+</body>
+</html>
