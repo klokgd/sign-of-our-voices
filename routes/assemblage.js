@@ -38,12 +38,12 @@ router.get('/id-:id', async function (req, res, next) {
     let pictures = await Pictures.find({
         '_id': { $in: listOfIdPictures}});
 
-    res.render('assemblage', { title: 'Hui', body: "Upload successfully", pictures, collectionId});
+    res.render('assemblage', { body: "Upload successfully", pictures, collectionId});
 
 });
 
 router.get('/new', function (req, res, next) {
-    res.render('new-collection');
+    res.render('newCollection');
 })
 
 router.get('/successfully', function (req, res, next) {
