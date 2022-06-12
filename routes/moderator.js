@@ -4,6 +4,10 @@ const router = express.Router();
 const Picture = require("../models/picture")
 const Assemblage = require("../models/assemblage");
 
+router.get('/', async (req, res, next) => {
+    res.render('moderatorDashboard', {title: "sIGN Модераторка"})
+})
+
 router.get('/suggest', async (req, res, next) => {
     const pictures = await suggestPicture.find({})
     res.render('suggestPictures', {title: "sIGN предложка", pictures: pictures});
@@ -26,7 +30,7 @@ router.post('/suggest/approve', async (req, res, next) => {
 });
 
 router.get('/suggest/approve', (req, res, next) => {
-    res.render("suggest-approve", {message: req.session.suggestMessage});
+    res.render("suggestApprove", {message: req.session.suggestMessage});
     req.session.suggestMessage = null;
 })
 

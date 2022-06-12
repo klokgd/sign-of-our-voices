@@ -9,6 +9,6 @@ const schema = new Schema({
         type: String,
         required: true
     }
-})
+});
 
 module.exports = model('picture', schema)

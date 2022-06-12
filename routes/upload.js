@@ -10,7 +10,8 @@ router.post("/fileupload", async (req, res, next) => {
     let base64 = req.body.image;
     let data = base64.replace(/^data:image\/png;base64/, "");
     let collectionId = req.body.collectionId;
-    let picture = new suggestPicture({path: "123", collectionId: collectionId});
+    let assemblage = await Assemblage.findById(collectionId).exec();
+    let picture = new suggestPicture({path: "123", collectionId: collectionId, assemblageName: assemblage._doc.name});
     picture.save(function (err) {
         if(err) return console.log(err);
         console.log("Картинка добавлена в предложку", picture);

@@ -6,15 +6,12 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <head>
-    <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
     <link rel="stylesheet" href="/stylesheets/collection.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
     <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
     <script src="https://unpkg.com/dropzone"></script>
     <script src="https://unpkg.com/cropperjs"></script>
-
 </head>
 <body>
 {{> navbar}}
@@ -23,7 +20,7 @@
         <ul>
         <div class="row">
             {{#each pictures}}
-                    <div class="picture-block col-xl-3 col-md-4 col-sm-6">
+                    <div class="picture-block col-xl-4 col-md-4 col-sm-6 mx-auto">
                         <li>
                             <span><img class="img-fluid picture-of-collections" src="{{path}}"></span>
                         </li>
@@ -85,6 +82,7 @@
         </div>
     </div>
 </div>
+{{>scripts}}
 </body>
 <script src="/javascripts/upload.js"></script>
 

@@ -8,7 +8,11 @@ const schema = new Schema({
     collectionId: {
         type: String,
         required: true
+    },
+    assemblageName: {
+        type: String,
+        required: true
     }
-})
+});
 
 module.exports = model('tempPicture', schema)

@@ -43,7 +43,7 @@ router.get('/id-:id', async function (req, res, next) {
 });
 
 router.get('/new', function (req, res, next) {
-    res.render('new-collection');
+    res.render('newCollection');
 })
 
 router.get('/successfully', function (req, res, next) {
