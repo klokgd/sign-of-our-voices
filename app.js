@@ -16,6 +16,9 @@ const Config = require('./libs/config')
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials')
+hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+  return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({ extended: true }));
