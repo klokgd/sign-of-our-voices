@@ -1,10 +1,9 @@
-const Assemblage = require("../models/assemblage");
 
 
-async function paginating(limit, currentPage, )
+async function paginating(limit, currentPage, schema)
 {
     let offset = limit * (currentPage - 1);
-    let assemblage = await Assemblage.paginate({}, {offset: offset, limit: limit}).then({});
+    let assemblage = await schema.paginate({}, {offset: offset, limit: limit}).then({});
     return assemblage.docs;
 }
 
