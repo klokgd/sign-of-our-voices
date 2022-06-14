@@ -82,6 +82,24 @@
         </div>
     </div>
 </div>
+
+<nav style="padding-top: 10px" aria-label="...">
+    <ul class="pagination">
+        <li class="page-item  {{#if startPage}}disabled{{/if}}">
+            <a class="page-link" href="?page={{prevPage}}" >Предыдущее</a>
+        </li>
+        {{#if pages.length}}
+            {{#each pages}}
+                <li class="page-item"><a class="page-link {{#if this.current}}active{{/if}} " href="?page={{this.number}}">{{this.number}}</a></li>
+            {{/each}}
+        {{/if}}
+        <li class="page-item {{#if nextPage}}disabled{{/if}}">
+            <a class="page-link"  href="?page={{nextPage}}">Следующее</a>
+        </li>
+    </ul>
+</nav>
+
+
 {{>scripts}}
 </body>
 <script src="/javascripts/upload.js"></script>

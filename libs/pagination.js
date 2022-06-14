@@ -1,9 +1,9 @@
 
 
-async function paginating(limit, currentPage, schema)
+async function paginating(query, limit, currentPage, schema)
 {
     let offset = limit * (currentPage - 1);
-    let assemblage = await schema.paginate({}, {offset: offset, limit: limit}).then({});
+    let assemblage = await schema.paginate(query, {offset: offset, limit: limit}).then({});
     return assemblage.docs;
 }
 

@@ -69,18 +69,19 @@
 
 </div>
 
-<nav aria-label="...">
+
+<nav style="padding-top: 10px" aria-label="...">
     <ul class="pagination">
-        <li class="page-item ">
-            <a class="page-link" href="#" >Предыдущее</a>
+        <li class="page-item  {{#if isStartPage}}disabled{{/if}}">
+            <a class="page-link" href="?page={{prevPage}}" >Предыдущее</a>
         </li>
-{{#if pages.length}}
-    {{#each pages}}
-        <li class="page-item"><a class="page-link {{#if this.current}}active{{/if}} " href="/?page={{this.number}}">{{this.number}}</a></li>
-    {{/each}}
-{{/if}}
-        <li class="page-item">
-            <a class="page-link" href="#">Следующее</a>
+        {{#if pages.length}}
+            {{#each pages}}
+                <li class="page-item"><a class="page-link {{#if this.current}}active{{/if}} " href="?page={{this.number}}">{{this.number}}</a></li>
+            {{/each}}
+        {{/if}}
+        <li class="page-item {{#if isFinishPage}}disabled{{/if}}">
+            <a class="page-link"  href="?page={{nextPage}}">Следующее</a>
         </li>
     </ul>
 </nav>
