@@ -19,23 +19,23 @@ router.post('/suggest/approve', async (req, res, next) => {
 
     if (req.body.cancel) {
         deleteItemFromCollection(suggest);
-        req.session.suggestMessage = "Картинка удалена из предложки";
+        req.session.suggestMessage = "Картинка удалена из предложки.";
         return res.redirect(callbackUrl);
     }
     let newPicture = await addPictureToDb(suggest);
     await addPictureToAssemblage(suggest._doc.collectionId, newPicture._id);
     await deleteItemFromCollection(suggest);
-    req.session.suggestMessage = "Картинка одобрена";
+    req.session.suggestMessage = "Картинка одобрена!";
     res.redirect(callbackUrl);
 });
 
 router.get('/suggest/approve', (req, res, next) => {
     res.render("suggestApprove", {message: req.session.suggestMessage});
     req.session.suggestMessage = null;
-})
+});
 
 async function addPictureToDb(suggest){
-    let newPicture = new Picture({path: suggest._doc.path, collectionId: suggest._doc.collectionId});
+    let newPicture = new Picture({path: suggest._doc.path, collectionId: suggest._doc.collectionId, data: suggest._doc.data, city: suggest._doc.city});
     newPicture.save(function (err) {
         if (err) return console.log(err);
         console.log("Картинка успешно одобрена", Picture);
