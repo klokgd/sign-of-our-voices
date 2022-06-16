@@ -47,19 +47,17 @@ router.get('/id-:id', async function (req, res, next) {
 
     let pages = Math.ceil(listOfIdPictures.length / limit);
     let pageArray = pagination.createPageArray(pages, currentPage);
-    let finishPage;
-    let startPage;
-    if (currentPage == pages) finishPage = true;
-    if (currentPage == 1) startPage = true;
+    let isStartPage = currentPage == 1 ? true : false;
+    let isFinishPage = (currentPage == pages) ? true : false;
     res.render('assemblage', {body: "Upload successfully",
         pictures,
         collectionId,
         pages: pageArray,
         current: currentPage,
         prevPage: currentPage - 1,
-        nextPage: currentPage + 1,
-        finishPage,
-        startPage
+        nextPage: parseInt(currentPage, 10) + 1,
+        isStartPage,
+        isFinishPage
     });
 });
 
@@ -69,6 +67,10 @@ router.get('/new', function (req, res, next) {
 
 router.get('/successfully', function (req, res, next) {
     res.render('successfullyAddingAssemblage');
+})
+
+router.get('/id-:id/statisctic', function (req,res,next) {
+    res.render('statistic');
 })
 
 router.post('/new', upload.single("cover"), async function (req, res, next) {

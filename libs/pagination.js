@@ -7,7 +7,7 @@ async function paginating(query, limit, currentPage, schema)
     return assemblage.docs;
 }
 
-function createPageArray(pageCount, currentPage)
+function createPageNumbersArray(pageCount, currentPage)
 {
     let pageArray = new Array();
     for (let i = 1; i <= pageCount; i++) {
@@ -22,5 +22,5 @@ function createPageArray(pageCount, currentPage)
 
 module.exports = {
     paginating: paginating,
-    createPageArray: createPageArray
+    createPageArray: createPageNumbersArray
 };

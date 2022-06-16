@@ -9,6 +9,14 @@ const schema = new Schema({
     collectionId: {
         type: String,
         required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    created: {
+        type: Date,
+        default: Date.now
     }
 });
 
