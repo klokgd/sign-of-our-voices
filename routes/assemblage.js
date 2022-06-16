@@ -36,7 +36,7 @@ router.get('/', async function (req, res, next) {
     res.render('index', {collections: assemblage, pages: pageArray, current: currentPage});
 }); //
 
-router.get('/id-:id', async function (req, res, next) {
+router.get('/id/:id', async function (req, res, next) {
     let collectionId = req.params["id"];
     const collection = await Assemblage.findById(collectionId);
     let listOfIdPictures = collection._doc.pictures;
@@ -69,7 +69,7 @@ router.get('/successfully', function (req, res, next) {
     res.render('successfullyAddingAssemblage');
 })
 
-router.get('/id-:id/statisctic', function (req,res,next) {
+router.get('/id/:id/statistic', function (req,res,next) {
     res.render('statistic');
 })
 
