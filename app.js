@@ -5,6 +5,14 @@ let cookieParser = require('cookie-parser');
 let lessMiddleware = require('less-middleware');
 let mongoose = require('mongoose');
 let hbs = require('hbs');
+hbs.registerHelper("math", function(lvalue, operator, rvalue, options) {
+  lvalue = parseFloat(lvalue);
+  rvalue = parseFloat(rvalue);
+
+  return {
+    "+": lvalue + rvalue
+  }[operator];
+});
 let usersRouter = require('./routes/users');
 let uploadRouter = require('./routes/upload');
 let collectionRouter = require('./routes/assemblage');

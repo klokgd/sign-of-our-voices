@@ -10,21 +10,30 @@
 {{>navbar}}
 
 <div class="container">
+    {{#if statistic.length}}
     <table class="table">
         <thead>
         <tr>
+            <th scope="col">Номер</th>
             <th scope="col">Город</th>
             <th scope="col">Количество картинок</th>
         </tr>
         </thead>
         <tbody>
+        {{#each statistic}}
         <tr>
-            <th scope="row">1</th>
-            <td>Testovich</td>
+            <th scope="row">{{math @key "+" 1}}</th>
+            <td>{{_id}}</td>
+            <td>{{count}}</td>
         </tr>
+        {{/each}}
         </tbody>
     </table>
+    {{else}}
+        <p>Нет доступной статистики!</p>
+    {{/if}}
 </div>
+<a href=".">Вернуться назад</a>
 
 {{>scripts}}
 </body>

@@ -15,6 +15,7 @@ const fileFilter = (req, file, cb) => {
         cb(null, false);
     }
 }
+
 const storageConfig = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "public/download/collection_images");
@@ -38,18 +39,18 @@ router.get('/', async function (req, res, next) {
 
 router.get('/id/:id', async function (req, res, next) {
     let collectionId = req.params["id"];
-    const collection = await Assemblage.findById(collectionId);
-    let listOfIdPictures = collection._doc.pictures;
     let currentPage = req.query.page || 1;
     let limit = 9;
-    let query = { '_id': {$in: listOfIdPictures}};
+    let query = {'collectionId': collectionId};
+    let picturesCount = await Pictures.find(query).count();
     let pictures = await pagination.paginating(query, limit, currentPage, Pictures);
-
-    let pages = Math.ceil(listOfIdPictures.length / limit);
+    let pages = Math.ceil(picturesCount / limit);
     let pageArray = pagination.createPageArray(pages, currentPage);
     let isStartPage = currentPage == 1 ? true : false;
     let isFinishPage = (currentPage == pages) ? true : false;
-    res.render('assemblage', {body: "Upload successfully",
+
+    res.render('assemblage', {
+        body: "Upload successfully",
         pictures,
         collectionId,
         pages: pageArray,
@@ -69,9 +70,24 @@ router.get('/successfully', function (req, res, next) {
     res.render('successfullyAddingAssemblage');
 })
 
-router.get('/id/:id/statistic', function (req,res,next) {
-    res.render('statistic');
+router.get('/id/:id/statistic', async function (req, res, next) {
+    let collectionId = req.params["id"];
+    let statistic = await Pictures.aggregate([
+            {$match: {collectionId: collectionId}},
+            {
+                $group: {
+                    _id: "$city",
+                    count: {$sum: 1}
+                }
+            },
+            {
+                $sort: { "count": -1 }
+            }
+        ])
+    ;
+    res.render('statistic', {statistic});
 })
+
 
 router.post('/new', upload.single("cover"), async function (req, res, next) {
     let assemblageName = req.body.name;
