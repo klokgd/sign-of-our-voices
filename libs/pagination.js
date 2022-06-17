@@ -10,6 +10,10 @@ async function paginating(query, limit, currentPage, schema)
 function createPageNumbersArray(pageCount, currentPage)
 {
     let pageArray = new Array();
+    if(pageCount == 0)
+    {
+        pageCount = 1;
+    }
     for (let i = 1; i <= pageCount; i++) {
         pageArray[i] = {
             number: i,
