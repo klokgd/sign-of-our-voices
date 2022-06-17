@@ -38,11 +38,8 @@ module.exports = (app, passport) => {
   let uploadRoute = require('./upload');
   app.use('/', uploadRoute);
 
-  app.get('/admin',
-      passport.checkIsInRole(ROLES.Admin),
-      (req, res) => {
-    res.render('admin-dashboard');
-  })
+  let adminRoute = require('./admin');
+  app.use('/admin', passport.checkIsInRole(ROLES.Admin), adminRoute)
 
   let moderatorRoute = require('./moderator');
   app.use('/moderator', passport.checkIsInRole(ROLES.Moderator), moderatorRoute);
