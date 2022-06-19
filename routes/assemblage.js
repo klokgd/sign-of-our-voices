@@ -67,7 +67,9 @@ router.get('/new', function (req, res, next) {
 })
 
 router.get('/successfully', function (req, res, next) {
-    res.render('successfullyAddingAssemblage');
+    let suggestMessage = req.session.suggestMessage;
+    res.render('successfully', {suggestMessage});
+    req.session.suggestMessage = null;
 })
 
 router.get('/id/:id/statistic', async function (req, res, next) {
@@ -107,7 +109,8 @@ router.post('/new', upload.single("cover"), async function (req, res, next) {
         if (err) return console.log(err);
         console.log("Ассамбляж добавлен", newAssemblage);
     });
-    res.redirect('successfully');
+    req.locals.suggestMessage = "Ассамбляж успешно добавлен.";
+    res.redirect('/successfully');
 });
 
 

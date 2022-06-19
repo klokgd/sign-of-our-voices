@@ -11,13 +11,12 @@ exports.get = async (req, res, next)=>{
     let pageArray = pagination.createPageArray(pages, currentPage);
     let isStartPage = currentPage == 1 ? true : false;
     let isFinishPage = (currentPage == pages) ? true : false;
-    let nextPage = currentPage + 1;
 
     res.render('index', { collections: assemblage,
         pages: pageArray,
         current: currentPage,
         prevPage: currentPage - 1,
-        nextPage,
+        nextPage: parseInt(currentPage, 10) + 1,
         isFinishPage,
         isStartPage});
 }

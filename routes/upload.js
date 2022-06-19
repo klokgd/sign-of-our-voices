@@ -24,11 +24,13 @@ router.post("/fileupload", async (req, res, next) => {
     uploadImage(newPictureName, data);
     picture.path = picturePath;
     req.session.collectionIdSuccessfullyAddingPicture = collectionId;
+    req.session.suggestMessage = "Картинка отправлена на премодерацию."
     res.redirect("/successfully");
 });
 
 router.get("/successfully", (req, res, next) => {
-    res.render('successfullyAddingImage', { id: req.session.collectionIdSuccessfullyAddingPicture});
+    let suggestMessage = req.session.suggestMessage;
+    res.render('successfully', { id: req.session.collectionIdSuccessfullyAddingPicture, suggestMessage});
 });
 
 

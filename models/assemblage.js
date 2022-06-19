@@ -17,6 +17,11 @@ const schema = new Schema({
     pictures: {
         type: Array,
         required: false
+    },
+    isDeleted: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 })
 
