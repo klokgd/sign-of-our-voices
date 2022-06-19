@@ -43,4 +43,5 @@ module.exports = (app, passport) => {
 
   let moderatorRoute = require('./moderator');
   app.use('/moderator', passport.checkIsInRole(ROLES.Moderator), moderatorRoute);
+
 };
