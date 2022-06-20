@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+{{>navbar}}
+    <div class="container">
+        <div class="col-l-6 col-sm-12">
+            <h3><a href="/assemblage/id/{{assemblage._id}}">{{assemblage.name}}</a></h3>
+            <p>Вы точно хотите удалить этот ассамбляж?</p>
+            <base href="/admin/assemblage/">
+            <form method="post"> <button class="btn btn-danger" >Да</button></form>
+            <a href="." class="btn btn-success">Отмена</a>
+        </div>
+    </div>
+{{>scripts}}
+</body>
+</html>

@@ -9,6 +9,10 @@ const schema = new Schema({
         type: String,
         required: true
     },
+    city: {
+        type: String,
+        required: true
+    },
     assemblageName: {
         type: String,
         required: true

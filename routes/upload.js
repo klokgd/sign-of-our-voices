@@ -7,11 +7,13 @@ const Pictures = require('../models/picture');
 const suggestPicture = require("../models/suggestPicture");
 
 router.post("/fileupload", async (req, res, next) => {
+    req.session.collectionIdSuccessfullyAddingPicture = null;
     let base64 = req.body.image;
     let data = base64.replace(/^data:image\/png;base64/, "");
     let collectionId = req.body.collectionId;
+    let city = req.body.city;
     let assemblage = await Assemblage.findById(collectionId).exec();
-    let picture = new suggestPicture({path: "123", collectionId: collectionId, assemblageName: assemblage._doc.name});
+    let picture = new suggestPicture({path: "123", collectionId: collectionId, assemblageName: assemblage._doc.name, city: city});
     picture.save(function (err) {
         if(err) return console.log(err);
         console.log("Картинка добавлена в предложку", picture);
@@ -21,11 +23,14 @@ router.post("/fileupload", async (req, res, next) => {
     let picturePath = "/download/" + newPictureName;
     uploadImage(newPictureName, data);
     picture.path = picturePath;
+    req.session.collectionIdSuccessfullyAddingPicture = collectionId;
+    req.session.suggestMessage = "Картинка отправлена на премодерацию."
     res.redirect("/successfully");
 });
 
 router.get("/successfully", (req, res, next) => {
-    res.render('successfullyAddingImage', { title: 'sIGN' });
+    let suggestMessage = req.session.suggestMessage;
+    res.render('successfully', { id: req.session.collectionIdSuccessfullyAddingPicture, suggestMessage});
 });
 
 
