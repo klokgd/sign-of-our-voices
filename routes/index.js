@@ -1,7 +1,6 @@
 
 
 const {ROLES} = require("../libs/roles");
-
 module.exports = (app, passport) => {
 
   let mainRoute = require('./main');
@@ -43,5 +42,6 @@ module.exports = (app, passport) => {
 
   let moderatorRoute = require('./moderator');
   app.use('/moderator', passport.checkIsInRole(ROLES.Moderator), moderatorRoute);
+
 
 };
