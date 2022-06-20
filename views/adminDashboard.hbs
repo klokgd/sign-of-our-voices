@@ -1,7 +1,28 @@
 <!doctype html>
 <html lang="en">
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+{{>navbar}}
 <body>
-<h1>привет, админ</h1>
+<div class="container">
+    <div class="col-9 col-lg-4 mx-auto">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-secondary">
+                <a href="/admin/assemblage">Редактирование ассембляжей</a>
+            </li>
+            <li class="list-group-item list-group-item-secondary">
+                <a href="/moderator/suggest">Прибавить репутацию юзеру</a>
+            </li>
+            <li class="list-group-item list-group-item-secondary">
+                <a href="/moderator/suggest">Удалить картинки из коллекции</a>
+            </li>
+        </ul>
+    </div>
+</div>
+{{>scripts}}
 </body>
 </html>

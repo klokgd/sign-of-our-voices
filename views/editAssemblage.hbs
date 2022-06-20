@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+{{> navbar}}
+<div class="container">
+    <div class="col-4">
+        <form method="post" action="/admin/assemblage/{{assemblage._id}}/edit" encType="multipart/form-data">
+            <div class="form-group">
+                <label for="inputName">Введите новое название:</label>
+                <input type="text" class="form-control" value="{{assemblage.name}}" name="name" id="inputName" aria-describedby="emailHelp"
+                       placeholder="Введите название">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="inputDescription">Введите новое описание:</label>
+                <textarea name="description" class="form-control inputDescription" id="inputDescription">{{assemblage.description}}</textarea>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="inputFile">Добавьте новую обложку ассамбляжа:</label>
+                <input name="cover" type="file" class="form-control-file">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-danger">Удалить ассамбляж</button>
+        </form>
+    </div>
+</div>
+{{>scripts}}
+</body>
+</html>

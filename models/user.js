@@ -28,6 +28,13 @@ const schema = new Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    rating: {
+        type: Number,
+        default: 0
+    },
+    username: {
+        type: String
     }
 });
 
@@ -36,22 +43,23 @@ schema.index(
 );
 
 schema.statics = {
-    fullSave: async function(data) {
+    fullSave: async function (data) {
         const Item = this;
         const items = new Item(data);
         return await items.save();
     },
-    updateItem: async function(id, params) {
+    updateItem: async function (id, params) {
         const Item = this;
         return await Item.updateOne(
             {_id: id},
             {$set: params}
         );
     },
-    removeItem: async function(id) {
+    removeItem: async function (id) {
         const Item = this;
         return await Item.deleteOne({_id: id});
     }
+
 };
 
 module.exports = model('user', schema)

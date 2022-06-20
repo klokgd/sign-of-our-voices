@@ -1,4 +1,5 @@
 const {Schema, model} = require('mongoose')
+const paginate = require("mongoose-paginate-v2");
 
 const schema = new Schema({
     name: {
@@ -16,7 +17,14 @@ const schema = new Schema({
     pictures: {
         type: Array,
         required: false
+    },
+    isDeleted: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 })
+
+schema.plugin(paginate);
 
 module.exports = model('collection', schema)
