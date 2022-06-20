@@ -15,7 +15,7 @@ exports.get = async (req, res, next)=>{
     res.render('index', { collections: assemblage,
         pages: pageArray,
         current: currentPage,
-        prevPage: currentPage - 1,
+        prevPage: parseInt(currentPage, 10) - 1,
         nextPage: parseInt(currentPage, 10) + 1,
         isFinishPage,
         isStartPage});

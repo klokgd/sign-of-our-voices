@@ -40,8 +40,6 @@ app.use(session({
   saveUninitialized: true
 }));
 
-//const assemblageRoute = require("./routes/assemblage");
-
 const passport = require('passport');
 require('./libs/passport')(passport);
 app.use(passport.initialize());
